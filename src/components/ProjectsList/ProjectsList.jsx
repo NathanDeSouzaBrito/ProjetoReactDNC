@@ -1,8 +1,29 @@
+import { useState, useEffect } from "react"
+
 import "./ProjectsList.css"
 import LikeBlack from "../../assets/iconLikeBlack.svg"
 import Like from "../../assets/iconLike.svg"
 
-const ProjectsList = (props) => {
+// UTILS
+import { getApiData } from "../../services/apiServices"
+
+const ProjectsList = () => {
+
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const projectsResponse = await getApiData("projects")
+                setProjects(projectsResponse)
+            } catch {
+                setProjects([])
+            }
+        }
+
+        fetchData()
+    }, [])
+
     return (
         <div className="projects-section">
             <div className="projects-hero">
@@ -10,66 +31,22 @@ const ProjectsList = (props) => {
                 <p>It is a long established fact that a reader will be distracted by the of readable content of page  lookings at its layouts  points.</p>
             </div>
             <div className="projects-grid">
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
-                <div className="project-card d-flex jc-center al-center fd-column">
-                    <div className="thumb tertiary-background"></div>
-                    <h3>Test 1</h3>
-                    <p>teste 2</p>
-                    <img src={Like} alt="Like icon" />
-                </div>
+                {
+                    projects.map((projects) => (
+                        <div 
+                            key={projects.id}
+                            className="project-card d-flex jc-center al-center fd-column"
+                        >
+                            <div 
+                                className="thumb tertiary-background"
+                                style={ { backgroundImage: `url(${projects.thumb})` } }
+                            ></div>
+                            <h3>{ projects.title }</h3>
+                            <p>{ projects.subtitle }</p>
+                            <img src={Like} alt="Like icon" height="20px"/>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     )
