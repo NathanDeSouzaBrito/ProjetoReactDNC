@@ -32,6 +32,7 @@ const ProjectsList = () => {
             </div>
             <div className="projects-grid">
                 {
+                    projects ?
                     projects.map((projects) => (
                         <div 
                             key={projects.id}
@@ -43,10 +44,10 @@ const ProjectsList = () => {
                             ></div>
                             <h3>{ projects.title }</h3>
                             <p>{ projects.subtitle }</p>
-                            <img src={Like} alt="Like icon" height="20px"/>
+                            <img src={Like} alt="Like icon"/>
                         </div>
-                    ))
-                }
+                    )) : null
+                } 
             </div>
         </div>
     )
