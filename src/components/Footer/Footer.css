@@ -50,6 +50,9 @@ footer .social-links a {
     column-gap: 23px;
 }
 
+.footer-copy .langs-area > img{
+    cursor: pointer;
+}
 
 @media (max-width: 768px) {
     .footer-col {
