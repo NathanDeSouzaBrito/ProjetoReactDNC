@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 
 import "./ProjectsList.css"
 import LikeBlack from "../../assets/iconLikeBlack.svg"
@@ -6,8 +6,10 @@ import Like from "../../assets/iconLike.svg"
 
 // UTILS
 import { getApiData } from "../../services/apiServices"
+import { AppContext } from "../../contexts/AppContext"
 
 const ProjectsList = () => {
+    const appContext = useContext(AppContext)
 
     const [projects, setProjects] = useState([]);
 
@@ -27,8 +29,8 @@ const ProjectsList = () => {
     return (
         <div className="projects-section">
             <div className="projects-hero">
-                <h2>Follow Our Projects</h2>
-                <p>It is a long established fact that a reader will be distracted by the of readable content of page  lookings at its layouts  points.</p>
+                <h2>{appContext.languages[appContext.language].projects.title}</h2>
+                <p>{appContext.languages[appContext.language].projects.subtitle}</p>
             </div>
             <div className="projects-grid">
                 {
